@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "617d1211-51d8-47c4-b241-ecebc174cdc7",
+		"name": "Aviate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Candidate Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if(pm.response.code===200){",
+							"pm.environment.set('authToken',pm.response.json().access);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":{\n        \"username\":\"user-2\",\n        \"email\":\"user-2@email.com\",\n        \"password\":\"123456\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/candidate/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"candidate",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if(pm.response.code===200){",
+							"pm.environment.set('authToken',pm.response.json().access);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"user-1\",\n    \"password\":\"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Candidate Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"works\":[\n        {\n            \"start_date\":\"2022-04-10\",\n            \"end_date\":\"2022-10-10\",\n            \"currently_working\":false,\n            \"description\":\"This is the description of the work-1\",\n            \"location\":\"Pune\",\n            \"role\":\"Intern\",\n            \"company\":\"Google\"\n        },\n        {\n            \"start_date\":\"2021-04-10\",\n            \"end_date\":\"2021-10-10\",\n            \"currently_working\":false,\n            \"description\":\"This is the description of the work-2\",\n            \"location\":\"Nasik\",\n            \"role\":\"Intern\",\n            \"company\":\"Intuit\"\n        }\n    ],\n    \"academics\":[\n        \n        {\n            \"start_date\":\"2019-04-10\",\n            \"end_date\":\"2021-10-10\",\n            \"currently_studying\":false,\n            \"description\":\"This is the description of the academic-0\",\n            \"location\":\"Pune\",\n            \"institute\":\"Dastur\"\n        },\n        {\n            \"start_date\":\"2021-04-10\",\n            \"end_date\":\"2022-10-10\",\n            \"currently_studying\":false,\n            \"description\":\"This is the description of the academic-1\",\n            \"location\":\"Pune\",\n            \"institute\":\"PICT\"\n        }\n    ],\n    \"links\":[\n        {\n            \"name\":\"GitHub\",\n            \"link\":\"https://github.com/burhanuddinmerchant\"\n        },\n        {\n            \"name\":\"LinkedIn\",\n            \"link\":\"https://linkedin.com/in/burhanuddinmerchant\"\n        }\n    ],\n    \"skills\":[\n        {\n            \"name\":\"HTML\"\n        },\n        {\n            \"name\":\"CSS\"\n        },\n        {\n            \"name\":\"JS\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/candidate/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"candidate",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Applications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/reviewer/applications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"reviewer",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reviewer Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if(pm.response.code===200){",
+							"pm.environment.set('authToken',pm.response.json().access);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":{\n        \"username\":\"rev-1\",\n        \"email\":\"rev-1@email.com\",\n        \"password\":\"123456\"\n    },\n    \"organization\":\"Google\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/reviewer/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"reviewer",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Review Application",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"status\": \"REJECTED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/reviewer/review",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"reviewer",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/candidate/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"candidate",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Applicaiton Detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/reviewer/application/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"reviewer",
+						"application",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
