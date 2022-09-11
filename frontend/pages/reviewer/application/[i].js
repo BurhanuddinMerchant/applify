@@ -16,6 +16,7 @@ export default function Dashboard() {
     candidate_name: "",
     candidate_email: "",
     skills: [],
+    resume: false,
     links: [],
   });
   const getApplicationDetail = async (id) => {
@@ -309,7 +310,7 @@ export default function Dashboard() {
                 );
               })}
             </div>
-            <div>
+            <div className="border-b-2 border-gray-400">
               <label>
                 Cover Letter
                 <textarea
@@ -320,7 +321,26 @@ export default function Dashboard() {
                 />
               </label>
             </div>
-            <div>
+            {formData["resume"] ? (
+              <div className="mb-2 mt-2">
+                <div>Resume</div>
+                <a
+                  rel="noreferrer"
+                  href={`${
+                    process.env.NEXT_PUBLIC_SERVER_BASE_URL
+                  }/reviewer/resume/${sessionStorage.getItem(
+                    "application_id"
+                  )}`}
+                  target="_blank"
+                  className=" bg-red-500 text-white px-2 py-1 hover:bg-red-400 mb-2 "
+                >
+                  Download
+                </a>
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="border-t-2 border-gray-400">
               <label>
                 Your Feedback
                 <textarea

@@ -102,8 +102,12 @@ class SubmitApplication(GenericAPIView):
     def post(self, request, *args, **kwargs):
         cover_letter = request.data["cover_letter"]
         company = request.data["company"]
+        resume = request.data["file"]
         application = Application.objects.create(
-            cover_letter=cover_letter, company=company, candidate=request.user.candidate
+            cover_letter=cover_letter,
+            company=company,
+            candidate=request.user.candidate,
+            resume=resume,
         )
         return Response(data="Submitted")
 

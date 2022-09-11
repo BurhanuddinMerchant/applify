@@ -1,3 +1,5 @@
+from http.client import HTTPResponse
+from urllib import response
 from reviewer.models import Reviewer
 from candidate.models import (
     Academic,
@@ -12,6 +14,7 @@ from reviewer.serializers import ReviewerRegisterSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.http import FileResponse
 
 
 class ReviewerRegisterView(GenericAPIView):
@@ -59,6 +62,10 @@ class GetApplicationDetail(GenericAPIView):
     def get(self, request, pk, *args, **kwargs):
         id = pk
         application = Application.objects.get(pk=id)
+        resume = False
+        if application.resume.name is not None:
+            resume = True
+        print(resume)
         works = Work.objects.filter(candidate=application.candidate).values()
         academics = Academic.objects.filter(candidate=application.candidate).values()
         skills = Skill.objects.filter(candidate=application.candidate).values()
@@ -75,6 +82,17 @@ class GetApplicationDetail(GenericAPIView):
                 "cover_letter": application.cover_letter,
                 "company": application.company,
                 "skills": skills,
+                "resume": resume,
                 "links": links,
             }
         )
+
+
+class GetResume(GenericAPIView):
+    # permission_classes = (IsAuthenticated,)
+
+    def get(self, request, pk, *args, **kwargs):
+        application = Application.objects.get(pk=pk)
+        resume = application.resume
+        response = FileResponse(resume)
+        return response

@@ -66,6 +66,7 @@ class Application(models.Model):
     reviewer = models.ForeignKey(
         Reviewer, on_delete=models.CASCADE, null=True, blank=True
     )
+    resume = models.FileField(blank=True, null=True, upload_to="resumes")
     feedback = models.TextField(default="")
 
     def __str__(self) -> str:

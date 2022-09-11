@@ -9,15 +9,20 @@ export default function Apply() {
   const [application, setapplication] = useState({
     cover_letter: "",
     company: "",
+    file: "",
   });
   const handleChange = (e) => {
     setapplication({ ...application, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let formData = new FormData();
+    formData.append("company", application.company);
+    formData.append("cover_letter", application.cover_letter);
+    formData.append("file", application.file);
     const result = await axiosApiInstance.post(
       `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/candidate/apply`,
-      application
+      formData
     );
     console.log(result);
     setapplication({ ...application, company: "", cover_letter: "" });
@@ -30,6 +35,11 @@ export default function Apply() {
       router.push("/login");
     }
   }, []);
+  useEffect(() => console.log(application), [application]);
+  const handleFileChange = (event) => {
+    setapplication({ ...application, file: event.target.files[0] });
+  };
+
   return (
     <>
       <Head>
@@ -103,6 +113,16 @@ export default function Apply() {
                 required
                 value={application.company}
                 onChange={handleChange}
+              />
+            </div>
+
+            <div className="mt-2">
+              <div>Resume*</div>
+              <input
+                type="file"
+                name="file"
+                className="w-full bg-slate-100 p-2 font-large text-black shadow-lg mt-2"
+                onChange={handleFileChange}
               />
             </div>
             <button
