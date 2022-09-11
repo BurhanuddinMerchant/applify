@@ -33,6 +33,8 @@ password: admin
 
 **I have attached the postman collection in the root of the project which can be found [here](https://github.com/BurhanuddinMerchant/applify/blob/master/Applify.postman_collection.json)**
 
+![Landing](https://raw.githubusercontent.com/BurhanuddinMerchant/applify/master/frontend/assets/workflow/landing.png)
+
 <hr/>
 
 Hope you found this intersting. Happy Coding :wink:
